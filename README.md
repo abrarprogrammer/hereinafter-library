@@ -1,66 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HereInAfter Library API Documentation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is the HereInAfter Library API, a RESTful API for managing a library's book collection. It allows publishers to perform CRUD operations on books, get user tokens for authentication, and more.
 
-## About Laravel
+## Implemented Logic
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- CRUD operations for managing books.
+- User authentication with bearer tokens.
+- Endpoint to get user tokens based on user ID (for testing purposes only).
+- Manual pagination for better control over data retrieval.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technologies Used
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel: A PHP web application framework used for backend development.
+- MySQL: A relational database management system for storing book and user data.
+- Composer: A dependency manager for PHP used for installing project dependencies.
+- Artisan: Laravel's command-line tool for various tasks, including migrations and serving the application.
 
-## Learning Laravel
+## Setup and Run Locally
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+To run this project locally, follow the steps below:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clone the repository:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   ```bash
+   git clone https://github.com/abrarprogrammer/hereinafter-library.git
+   ```
 
-## Laravel Sponsors
+2. Navigate to the project directory:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+   ```bash
+   cd hereinafter-library
+   ```
 
-### Premium Partners
+3. Install dependencies:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   composer install
+   ```
 
-## Contributing
+4. Create a copy of the `.env.example` file and rename it to `.env`:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   cp .env.example .env
+   ```
 
-## Code of Conduct
+5. Generate an application key:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+6. Configure your database settings in the `.env` file.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. Run database migrations:
 
-## License
+   ```bash
+   php artisan migrate
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. Seed the database:
+
+   ```bash
+   php artisan db:seed
+   ```
+
+9. Start the development server:
+
+   ```bash
+   php artisan serve
+   ```
+
+10. The API will be available at `http://127.0.0.1:8000` by default.
+
+## API Endpoints
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/30810909-c479eca0-8bd1-4b7b-bd81-76ebe6464b6e?action=collection%2Ffork&collection-url=entityId%3D30810909-c479eca0-8bd1-4b7b-bd81-76ebe6464b6e%26entityType%3Dcollection%26workspaceId%3Dfe73aa95-5a73-4a0d-bcbf-71243134ee4e)
+
+## Get User Token
+
+Get the user token for authentication.
+
+### Request
+
+- **URL:** `http://127.0.0.1:8000/api/test/get-token/{user_id}`
+- **Method:** `GET`
+
+### Response
+
+- Status: `200 OK`
+- Body: `<token>`
+
+---
+
+
+## Add Book
+
+Add a new book to the library.
+
+### Request
+
+- **URL:** `http://127.0.0.1:8000/api/book`
+- **Method:** `POST`
+- **Authorization:** Bearer Token
+- **Token:** `<token>`
+- **Body:** form-data
+  - `name`: Book name
+  - `author_ids`: 5,7
+
+### Response
+
+- Status: `201 Created`
+
+---
+
+## Modify Book
+
+Modify details of a book in the library.
+
+### Request
+
+- **URL:** `http://127.0.0.1:8000/api/book/{book_id}`
+- **Method:** `PUT`
+- **Authorization:** Bearer Token
+- **Token:** `<token>`
+- **Query Params:**
+  - `name`: Updated book name
+
+### Response
+
+- Status: `200 OK`
+- Body: JSON representation of the modified book
+
+---
+
+## Delete Book
+
+Delete a book from the library.
+
+### Request
+
+- **URL:** `http://127.0.0.1:8000/api/book/{book_id}`
+- **Method:** `DELETE`
+- **Authorization:** Bearer Token
+- **Token:** `<token>`
+
+### Response
+
+- Status: `204 No Content`
