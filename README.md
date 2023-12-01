@@ -16,6 +16,47 @@ This is the HereInAfter Library API, a RESTful API for managing a library's book
 - Composer: A dependency manager for PHP used for installing project dependencies.
 - Artisan: Laravel's command-line tool for various tasks, including migrations and serving the application.
 
+
+## Eloquent Relationships
+
+### Book Model
+
+#### Authors Relationship
+
+- **Type:** Many-to-Many
+- **Method:** `$this->belongsToMany(Author::class);`
+
+#### Publisher Relationship
+
+- **Type:** Belongs To Many
+- **Method:** `$this->belongsToMany(Publisher::class);`
+
+### Author Model
+
+#### Books Relationship
+
+- **Type:** Many-to-Many
+- **Method:** `$this->belongsToMany(Book::class);`
+
+### Publisher Model
+
+#### Books Relationship
+
+- **Type:** Belongs To Many
+- **Method:** `$this->belongsToMany(Book::class);`
+
+---
+
+## Some Explanation
+
+Test description does not contain all the information so I've coded it by assuming following things:
+
+- User is already registered (seeding)
+- A user can be a publisher
+- User will use its authentication token to make changes as a publisher
+- Authors are termed as seperate resource and are not user of the application
+
+
 ## Setup and Run Locally
 
 To run this project locally, follow the steps below:
