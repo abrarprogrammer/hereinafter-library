@@ -10,30 +10,33 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $current_page = 1;
-        $previous_page = 0;
-        $next_page = 2;
+        return view('home');
+    }
 
-        if($request->has('page')) {
-            $current_page = $request->get('page');
-            $previous_page = $current_page - 1;
-            $next_page = $current_page + 1;
-        }
+    public function getBooks(Request $request)
+    {
+        $current_page = $request->query->get('page', 1);
 
         $publishers = Publisher::with('books')->get();
 
         $books = $publishers->flatMap(function ($publisher) {
             return $publisher->books->map(function ($book) use ($publisher) {
                 $book->publisher_name = $publisher->name;
+                $book->authors;
                 return $book;
             });
         })->filter();
 
-        $perPage = 10;
+        $total = $books->count();
+
+        $perPage = 4;
         $offset = ($current_page - 1) * $perPage;
 
         $books = $books->slice($offset, $perPage);
 
-        return view('home', compact('books', 'previous_page', 'next_page'));
+        $last = ($offset + $books->count()) >= $total;
+
+        return response()->json(['books' => $books, 'last' => $last]);
     }
+
 }
